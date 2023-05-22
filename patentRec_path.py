@@ -239,10 +239,17 @@ class proceed():
         self.main_dir = os.getcwd()
 
         os.chdir(self.path)
-        self.mol_input = [ff for ff in os.listdir(".") if ff.startswith("Mol")][0]
-        self.label_input = [ff for ff in os.listdir(".") if ff.startswith("Label")][0]
+        try:
+            self.mol_input = [ff for ff in os.listdir(".") if ff.startswith("Mol")][0]
+            self.label_input = [ff for ff in os.listdir(".") if ff.startswith("Label")][0]
+        except Exception as e:
+            self.mol_input = None
+            self.label_input = None
+        
 
     def get_mol(self):
+        if not self.mol_input:
+            return None
         _dic = {}
         cmd = ["#!/bin/sh \n",\
                "\n",
@@ -275,6 +282,8 @@ class proceed():
         return _dic
     
     def get_label(self):
+        if not self.label_input:
+            return None
         _dic = {}
         content = img2txt(self.label_input).run()
         if content:
@@ -286,6 +295,9 @@ class proceed():
     def assemble(self):
         dic_mol = self.get_mol()
         dic_label = self.get_label()
+
+        if not (dic_mol and dic_label):
+            return None
 
         if dic_mol[self.abs_path]:
             try:
