@@ -297,6 +297,8 @@ class proceed():
         dic_label = self.get_label()
 
         if not (dic_mol and dic_label):
+            os.chdir(self.main_dir)
+            os.system(f"rm -rf {self.path}")
             return None
 
         if dic_mol[self.abs_path]:
