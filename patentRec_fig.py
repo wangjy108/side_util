@@ -250,7 +250,7 @@ if __name__ == "__main__":
                         help='number of mol in horizonal axis')
     parser.add_argument('--N_in_column', type=int, required=True, 
                         help='number of mol in vertical axis')
-    parser.add_argument('--if_header', type=bool, required=True, 
+    parser.add_argument('--if_header', type=bool, default=False, 
                         help='if header in input table')
     parser.add_argument('--parallel', type=bool, default=False, 
                         help='if use parallel run, default False')
